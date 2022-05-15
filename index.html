@@ -1,0 +1,93 @@
+<!DOCUMENT html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- ‼️config here 在这里配置姓名等 -->
+        <script>
+            name = "A-SOUL"; /* 姓名 */
+            picture = "https://cdn.alexhaohao.com/asoulwiki/2021/07/20210719084508900.png?x-oss-process=image/auto-orient,1/quality,q_90/format,webp"; /* 输入一寸照片的 URL，或者是 base64 数组。 */
+        </script>
+        <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="./bootstrap/css/bootstrap-theme.css">
+        <script src="./bootstrap/js/bootstrap.js"></script>
+        <script src="./jquery.js"></script>
+        <style>
+            .container {
+                max-width: 720px;
+            }
+            #RenShengZiGu {
+                border-style:solid;
+                border-width:2px;
+                border-radius: 7px;
+                border-color: white;
+                background-color: black;
+                padding: .2em;
+                font-size: 20px;
+            }
+            #Sheiwusi {
+                margin-left: .3em;
+                color: white;
+            }
+            #Lilium_formosanum_var_pricei {
+                width: 5vw;
+                border-radius: 5px;
+            }
+            #LingTang {
+                position: relative;
+            }
+            #Picture_Border {
+                position: absolute;
+                width: 100%;
+                max-width: 320px;           
+                left: 50%;            
+                transform: translateX(-50%);  
+            }
+            #Dead_Picture {
+                filter: grayscale(0%);
+                position: absolute;
+                width: 18%;
+                min-width: 130px;
+                left: 50%;            
+                transform: translate(-50%, 120px); 
+            }
+        </style>
+        <title>电子灵堂异常：你可能没有加载 JavaScript。</title>
+    </head>
+    <body>
+        <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+        <div class="container">
+            <div class="page-header">
+                <h1 class="title" id="title"></h1>
+                <div id="RenShengZiGu">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td><img alt="Lilium formosanum var pricei.jpg" src="Lilium_formosanum_var_pricei.jpg" id="Lilium_formosanum_var_pricei">
+                                </td>
+                                <td><div id="Sheiwusi">人生自古谁无死？不幸的，<span style="margin:.0em .2em .0em .2em; padding: .0em .2em .0em .2em; border-radius: 5px; border: thin solid; --darkreader-inline-border-top: initial; --darkreader-inline-border-right: initial; --darkreader-inline-border-bottom: initial; --darkreader-inline-border-left: initial;" data-darkreader-inline-border-top="" data-darkreader-inline-border-right="" data-darkreader-inline-border-bottom="" data-darkreader-inline-border-left=""><b id="dead_nameInSheiwusi"></b></span>已经逝世，因此无法继续与您互动，让我们永远缅怀它。</div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- 分割线后 主体 -->
+            <div id="LingTang">
+                <img src="./ASOUL.png" id="Dead_Picture">
+                <img src="./电子灵堂.png" id="Picture_Border">
+
+            </div>
+        </div>
+
+        
+        
+        <!-- 电子灵堂 主程序 -->
+        <script>
+            document.title = name+" 的电子灵堂";
+            document.getElementById("title").innerHTML = name+" 的电子灵堂";
+            document.getElementById("dead_nameInSheiwusi").innerHTML = name;
+            document.getElementById("Dead_Picture").src = picture;
+        </script>
+    </body>
+</html>
