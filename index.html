@@ -2,15 +2,27 @@
 <html>
     <head>
         <meta charset="UTF-8">
+
         <!-- ‼️config here 在这里配置姓名等 -->
         <script>
-            name = "A-SOUL"; /* 姓名 */
-            picture = "https://cdn.alexhaohao.com/asoulwiki/2021/07/20210719084508900.png?x-oss-process=image/auto-orient,1/quality,q_90/format,webp"; /* 输入一寸照片的 URL，或者是 base64 数组。 */
+            /* 姓名 最多六个字符 不然可能会有点问题 实际上是懒得调样式 如果可以的话可以自己改 */
+            name = "A-SOUL"; 
+
+            /* 输入一寸照片的 URL，或者是 base64 数组。 */
+            picture = "https://cdn.alexhaohao.com/asoulwiki/2021/07/20210719084508900.png?x-oss-process=image/auto-orient,1/quality,q_90/format,webp"; 
+            
+            /* 在这里写一些介绍和生前逸事 */
+            introduction = "A-SOUL 是由乐华娱乐与字节跳动共同推出的虚拟女子偶像团体，共有<i>五</i>名成员，分别是向晚Ava、贝拉Bella、<!--珈乐Carol、-->嘉然Diana、乃琳Eileen。<br><br>生前逸事：制作委员会压榨中之人员工，138 元的舰长中之人仅能得 7 角钱。QA 打太极、隐瞒员工伤情、PUA 员工，而后为了逼迫员工续约将员工隐私暴露在互联网上。其发现可能团队为了完全压榨员工，可能进行了（未考证）以低价购买中之人的脸模并运用到游戏里、高强度收集中之人声音进行人工智能训练，以便后续 AI 直播，且 AI 直播包含软色情。更多出生的内容可以前往微博 <i>#A-SOUL成员遭遇公司PUA# #A-soul制作委员会致歉# #A-SOUL称不存在霸凌压榨成员情况# #抵制字节跳动剥削员工#</i> 等 Tag 了解。"; 
         </script>
+
+        <!-- 网页头 -->
         <link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="./bootstrap/css/bootstrap-theme.css">
         <script src="./bootstrap/js/bootstrap.js"></script>
         <script src="./jquery.js"></script>
+        <script src="./lottie.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+        <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <style>
             .container {
                 max-width: 720px;
@@ -36,11 +48,13 @@
                 position: relative;
             }
             #Picture_Border {
-                position: absolute;
+                position: relative;
                 width: 100%;
-                max-width: 320px;           
+                max-width: 320px;
+                min-width: 300px;
                 left: 50%;            
-                transform: translateX(-50%);  
+                transform: translateX(-50%);
+                pointer-events: none;
             }
             #Dead_Picture {
                 filter: grayscale(0%);
@@ -49,6 +63,97 @@
                 min-width: 130px;
                 left: 50%;            
                 transform: translate(-50%, 120px); 
+                filter: blur(3px);
+            }
+            #big_name {
+                position: relative;
+                text-align: center;
+                font-size: 3em;
+                text-transform: capitalize;
+                border: thin solid;
+                border-width:2px;
+                border-radius: 7px;
+                width: 25%;
+                left: 50%;
+                font-weight: 900;
+                transform: translateX(-50%);
+            }
+            #tips {
+                color: gray;
+            }
+            #tips::after {
+                content: "（🖱/👆 ↓）";
+            }
+            @keyframes UpStream_animation {
+                0% {
+                    transform: translate(-50%, 120px); 
+                }
+                25% {
+                    transform: translate(-49%, 100px); 
+                }
+                27% {
+                    transform: translate(-32%, 90px); 
+                }
+                30% {
+                    transform: translate(-70%, 80px); 
+                }
+                40% {
+                    transform: translate(-49%, 70px); 
+                }
+                60% {
+                    transform: translate(-40%, 50px); 
+                }
+                700% {
+                    transform: translate(-70%, 80px); 
+                }
+                73% {
+                    transform: translate(-49%, 70px); 
+                }
+                75% {
+                    transform: translate(-40%, 50px); 
+                }
+                78% {
+                    transform: translate(-50%, 90px); 
+                }
+                80% {
+                    transform: translate(-70%, 80px); 
+                }
+                83% {
+                    transform: translate(-49%, 70px); 
+                }
+                89% {
+                    transform: translate(-40%, 50px); 
+                }
+                100% {
+                    transform: translate(-50%, 120px); 
+                }
+            }
+            .UpStream_animation {animation: 1s UpStream_animation;}
+            @keyframes HideAnimation{
+                0%{opacity: 100%;}
+                50%{opacity: 0%;}
+                100%{opacity: 100%;}
+            }
+            @keyframes CancelBlur {
+                0%{filter: blur(3px);}
+                50%{filter: blur(0px);}
+                100%{filter: blur(3px);}
+            }
+            .Hide_animation {animation: 1s HideAnimation;}
+            .CancelBlur {animation: 1s CancelBlur}
+            @keyframes Bigger {
+                0%{width: 18%;}
+                50%{width: 40%;}
+                100%{width: 18%;}
+            }
+            .Bigger {animation: 2s Bigger;}
+            #Champagne{
+                width: 10em;
+                left: 50%;            
+                transform: translate(300%, -80%); 
+            }
+            #Champagne svg {
+                height: auto !important;
             }
         </style>
         <title>电子灵堂异常：你可能没有加载 JavaScript。</title>
@@ -58,7 +163,7 @@
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
         <div class="container">
             <div class="page-header">
-                <h1 class="title" id="title"></h1>
+                <h1 class="title" id="title">JavaScript required.</h1>
                 <div id="RenShengZiGu">
                     <table>
                         <tbody>
@@ -71,12 +176,25 @@
                         </tbody>
                     </table>
                 </div>
+                <i id="tips">继续向下滚动查看更多</i>
             </div>
             <!-- 分割线后 主体 -->
             <div id="LingTang">
-                <img src="./ASOUL.png" id="Dead_Picture">
-                <img src="./电子灵堂.png" id="Picture_Border">
-
+                <img src="逝者照片" src="" id="Dead_Picture">
+                <img alt="灵堂相框" src="./电子灵堂.png" id="Picture_Border">
+                <div style="position: absolute;"><div id="Champagne"></div></div>
+                <h3 id="big_name">未启用 JavaScript。</h3>
+                <p id="life_introduction">未启用 JavaScript。</p>
+                <hr />
+                <h4 id="Gongpin">给 [] 送上贡品</h4>
+                <div class="btn-group" role="group" aria-label="...">
+                    <button type="button" class="btn btn-default" id="UpStream">上升气流</button>
+                    <button type="button" class="btn btn-default" id="HideCloth">隐藏遮羞布</button>
+                    <button type="button" class="btn btn-default" id="BiggerMamma">胸部变大</button>
+                    <button type="button" class="btn btn-default" id="OpenChampagne">开香槟🍾</button>
+                </div>
+                <hr />
+                <div id="gitalk-container"></div>
             </div>
         </div>
 
@@ -88,6 +206,44 @@
             document.getElementById("title").innerHTML = name+" 的电子灵堂";
             document.getElementById("dead_nameInSheiwusi").innerHTML = name;
             document.getElementById("Dead_Picture").src = picture;
+            document.getElementById("big_name").innerHTML = name;
+            document.getElementById("life_introduction").innerHTML = introduction;
+            document.getElementById("Gongpin").innerHTML = "给 "+ name +" 送上贡品";
+            var gitalk = new Gitalk({
+                clientID: 'be96a41462c84525e077',
+                clientSecret: '5be136bc48441c539d9203aa5c61dbadb42d3309',
+                repo: 'Lingtang_OnInternet',
+                owner: 'ASOULFucker',
+                admin: ['ASOULFucker'],
+                id: location.pathname,      // Ensure uniqueness and length less than 50
+                distractionFreeMode: false  // Facebook-like distraction free mode
+            });
+            gitalk.render('gitalk-container');
+            document.getElementById("UpStream").onclick = function(){
+                $('#Dead_Picture').addClass("UpStream_animation");
+                setTimeout(function(){$('#Dead_Picture').removeClass('UpStream_animation')},1100);
+            };
+            document.getElementById("HideCloth").onclick = function(){
+                $('#Picture_Border').addClass("Hide_animation");
+                $('#Dead_Picture').addClass("CancelBlur");
+                setTimeout(function(){
+                    $('#Picture_Border').removeClass('Hide_animation');
+                    $('#Dead_Picture').removeClass('CancelBlur')
+                },1100);
+            };
+            document.getElementById("BiggerMamma").onclick = function(){
+                $('#Dead_Picture').addClass("Bigger");
+                setTimeout(function(){$('#Dead_Picture').removeClass('Bigger')},2000);
+            };
+            document.getElementById("OpenChampagne").onclick = function(){
+                lottie.loadAnimation({
+                container: Champagne, // 容器节点
+                renderer: 'svg',
+                loop: true,
+                autoplay: true,
+                path: 'champagne.json' // JSON文件路径
+                });
+            };
         </script>
     </body>
 </html>
