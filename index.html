@@ -13,6 +13,17 @@
             
             /* 在这里写一些介绍和生前逸事 */
             introduction = "A-SOUL 是由乐华娱乐与字节跳动共同推出的虚拟女子偶像团体，共有<i>五</i>名成员，分别是向晚Ava、贝拉Bella、<!--珈乐Carol、-->嘉然Diana、乃琳Eileen。<br><br>生前逸事：制作委员会压榨中之人员工，138 元的舰长中之人仅能得 7 角钱。QA 打太极、隐瞒员工伤情、PUA 员工，而后为了逼迫员工续约将员工隐私暴露在互联网上。其发现可能团队为了完全压榨员工，可能进行了（未考证）以低价购买中之人的脸模并运用到游戏里、高强度收集中之人声音进行人工智能训练，以便后续 AI 直播，且 AI 直播包含软色情。更多出生的内容可以前往微博 <i>#A-SOUL成员遭遇公司PUA# #A-soul制作委员会致歉# #A-SOUL称不存在霸凌压榨成员情况# #抵制字节跳动剥削员工#</i> 等 Tag 了解。"; 
+
+            /* Gitalk 评论区配置 */
+            var gitalk = new Gitalk({
+                clientID: 'be96a41462c84525e077',
+                clientSecret: '5be136bc48441c539d9203aa5c61dbadb42d3309',
+                repo: 'Lingtang_OnInternet',
+                owner: 'ASOULFucker',
+                admin: ['ASOULFucker'],
+                id: location.pathname,      // Ensure uniqueness and length less than 50
+                distractionFreeMode: false  // Facebook-like distraction free mode
+            });
         </script>
 
         <!-- 网页头 -->
@@ -150,7 +161,7 @@
             #Champagne{
                 width: 10em;
                 left: 50%;            
-                transform: translate(300%, -80%); 
+                transform: translate(130%, -80%); 
             }
             #Champagne svg {
                 height: auto !important;
@@ -210,15 +221,6 @@
             document.getElementById("big_name").innerHTML = name;
             document.getElementById("life_introduction").innerHTML = introduction;
             document.getElementById("Gongpin").innerHTML = "给 "+ name +" 送上贡品";
-            var gitalk = new Gitalk({
-                clientID: 'be96a41462c84525e077',
-                clientSecret: '5be136bc48441c539d9203aa5c61dbadb42d3309',
-                repo: 'Lingtang_OnInternet',
-                owner: 'ASOULFucker',
-                admin: ['ASOULFucker'],
-                id: location.pathname,      // Ensure uniqueness and length less than 50
-                distractionFreeMode: false  // Facebook-like distraction free mode
-            });
             gitalk.render('gitalk-container');
             document.getElementById("UpStream").onclick = function(){
                 $('#Dead_Picture').addClass("UpStream_animation");
