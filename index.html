@@ -5,13 +5,14 @@
 
         <!-- ‼️config here 在这里配置姓名等 -->
         <script>
-            /* 姓名 最多六个字符 不然可能会有点问题 实际上是懒得调样式 如果可以的话可以自己改 */
+            /* (字符串)姓名 最多六个字符 不然可能会有点问题 实际上是懒得调样式 如果可以的话可以自己改 */
             name = "A-SOUL"; 
 
-            /* 输入一寸照片的 URL，或者是 base64 数组。 */
+            /* (URL 字符串)输入一寸照片的 URL，或者是 base64 数组。 */
             picture = "https://cdn.alexhaohao.com/asoulwiki/2021/07/20210719084508900.png?x-oss-process=image/auto-orient,1/quality,q_90/format,webp"; 
-            
-            /* 在这里写一些介绍和生前逸事 */
+            reverse_picture_color = true; /* (布尔值)是否将图片反色 */
+
+            /* (字符串)在这里写一些介绍和生前逸事 */
             introduction = "A-SOUL 是由乐华娱乐与字节跳动共同推出的虚拟女子偶像团体，共有<i>五</i>名成员，分别是向晚Ava、贝拉Bella、<!--珈乐Carol、-->嘉然Diana、乃琳Eileen。<br><br>生前逸事：制作委员会压榨中之人员工，138 元的舰长中之人仅能得 7 角钱。QA 打太极、隐瞒员工伤情、PUA 员工，而后为了逼迫员工续约将员工隐私暴露在互联网上。其发现可能团队为了完全压榨员工，可能进行了（未考证）以低价购买中之人的脸模并运用到游戏里、高强度收集中之人声音进行人工智能训练，以便后续 AI 直播，且 AI 直播包含软色情。更多出生的内容可以前往微博 <i>#A-SOUL成员遭遇公司PUA# #A-soul制作委员会致歉# #A-SOUL称不存在霸凌压榨成员情况# #抵制字节跳动剥削员工#</i> 等 Tag 了解。"; 
 
             
@@ -26,6 +27,10 @@
         <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
         <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
         <style>
+            body {
+                background: black;
+                color: white;
+            }
             .container {
                 max-width: 720px;
             }
@@ -57,15 +62,18 @@
                 left: 50%;            
                 transform: translateX(-50%);
                 pointer-events: none;
+                filter: invert(1) hue-rotate(180deg);
             }
             #Dead_Picture {
-                filter: grayscale(0%);
                 position: absolute;
                 width: 18%;
                 min-width: 130px;
                 left: 50%;            
                 transform: translate(-50%, 120px); 
-                filter: blur(3px);
+                
+            }
+            .Dead_Picture_Light {
+                filter: grayscale(100%) blur(3px);
             }
             #big_name {
                 position: relative;
@@ -136,13 +144,7 @@
                 50%{opacity: 0%;}
                 100%{opacity: 100%;}
             }
-            @keyframes CancelBlur {
-                0%{filter: blur(3px);}
-                50%{filter: blur(0px);}
-                100%{filter: blur(3px);}
-            }
             .Hide_animation {animation: 1s HideAnimation;}
-            .CancelBlur {animation: 1s CancelBlur}
             @keyframes Bigger {
                 0%{width: 18%;}
                 50%{width: 40%;}
@@ -157,6 +159,64 @@
             #Champagne svg {
                 height: auto !important;
             }
+            @keyframes disappear {
+                0% {opacity: 100%;}
+                100% {opacity: 0%;}
+            }
+            .disappear {
+                animation: 3s disappear;
+                animation-delay: 426ms;
+                animation-fill-mode: forwards;
+                pointer-events: none;
+            }
+            #loading {
+                position: fixed;
+                background-color: white;
+                color: black;
+                height: 100vh;
+                width: 100vw;
+                top: 0;
+                left: 0;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+            }
+            .loading_text {
+                font-size: 5.6vw;
+            }
+            @keyframes dot_loading {
+                0% {opacity: 100%;}
+                25% {opacity: 0%;}
+                100% {opacity: 100%;}
+            }
+            #dot_loading_1 {
+                animation: 3s dot_loading infinite;
+                animation-delay: 300ms;
+            }
+            #dot_loading_2 {
+                animation: 3s dot_loading infinite;
+                animation-delay: 600ms;
+            }
+            #dot_loading_3 {
+                animation: 3s dot_loading infinite;
+                animation-delay: 900ms;
+            }
+            .reverse_color {
+                filter: grayscale(100%) blur(3px) invert(1) hue-rotate(180deg);
+            }
+            @keyframes CancelBlur {
+                0%{filter: grayscale(100%) blur(3px);}
+                50%{filter: grayscale(0%) blur(0px);}
+                100%{filter: grayscale(100%) blur(3px);}
+            }
+            .CancelBlur {animation: 1s CancelBlur}
+            @keyframes CancelBlur_Reverse {
+                0%{filter: grayscale(100%) blur(3px) invert(1) hue-rotate(180deg);}
+                50%{filter: grayscale(0%) blur(0px) invert(0) hue-rotate(0deg);}
+                100%{filter: grayscale(100%) blur(3px) invert(1) hue-rotate(180deg);}
+            }
+            .CancelBlur_Reverse {animation: 1s CancelBlur_Reverse}
         </style>
         <title>电子灵堂异常：你可能没有加载 JavaScript。</title>
     </head>
@@ -182,7 +242,7 @@
             </div>
             <!-- 分割线后 主体 -->
             <div id="LingTang">
-                <img src="逝者照片" src="" id="Dead_Picture">
+                <img alt="逝者照片" src="" class="Dead_Picture_Light" id="Dead_Picture">
                 <img alt="灵堂相框" src="./电子灵堂.png" id="Picture_Border">
                 <div style="position: absolute;"><div id="Champagne"></div></div>
                 <h3 id="big_name">未启用 JavaScript。</h3>
@@ -192,8 +252,8 @@
                 <div class="btn-group" role="group" aria-label="...">
                     <button type="button" class="btn btn-default" id="UpStream">上升气流</button>
                     <button type="button" class="btn btn-default" id="HideCloth">隐藏遮羞布</button>
-                    <button type="button" class="btn btn-default" id="BiggerMamma">胸部变大</button>
-                    <button type="button" class="btn btn-default" id="OpenChampagne">开香槟🍾</button>
+                    <button type="button" class="btn btn-default" id="BiggerMamma">胸部变大（宽度窄的屏幕可能不生效）</button>
+                    <button type="button" class="btn btn-default" id="OpenChampagne">开香槟🍾（开多了会卡，不要作死）</button>
                 </div>
                 <hr />
                 <h4>留下致辞</h4>
@@ -201,7 +261,9 @@
             </div>
         </div>
 
-        
+        <div id="loading">
+                <p class="loading_text" id="loading_tips">你是不是没开 JavaScript？</p><p class="loading_text" id="dot_loading_1">.</p><p class="loading_text" id="dot_loading_2">.</p><p class="loading_text" id="dot_loading_3">.</p>
+        </div>
         
         <!-- 电子灵堂 主程序 -->
         <script>
@@ -212,6 +274,7 @@
             document.getElementById("big_name").innerHTML = name;
             document.getElementById("life_introduction").innerHTML = introduction;
             document.getElementById("Gongpin").innerHTML = "给 "+ name +" 送上贡品";
+            document.getElementById("loading_tips").innerHTML = "马上就好";
 
             /* Gitalk 评论区配置 */
             var gitalk = new Gitalk({
@@ -230,12 +293,23 @@
                 setTimeout(function(){$('#Dead_Picture').removeClass('UpStream_animation')},1100);
             };
             document.getElementById("HideCloth").onclick = function(){
-                $('#Picture_Border').addClass("Hide_animation");
-                $('#Dead_Picture').addClass("CancelBlur");
-                setTimeout(function(){
-                    $('#Picture_Border').removeClass('Hide_animation');
-                    $('#Dead_Picture').removeClass('CancelBlur')
-                },1100);
+                if (reverse_picture_color) {
+                    $('#Picture_Border').addClass("Hide_animation");
+                    $('#Dead_Picture').addClass("CancelBlur_Reverse");
+                    setTimeout(function(){
+                        $('#Picture_Border').removeClass('Hide_animation');
+                        $('#Dead_Picture').removeClass('CancelBlur_Reverse');
+                    },1100);
+                console.log("Reversed.")
+                } else {
+                    $('#Picture_Border').addClass("Hide_animation");
+                    $('#Dead_Picture').addClass("CancelBlur");
+                    setTimeout(function(){
+                        $('#Picture_Border').removeClass('Hide_animation');
+                        $('#Dead_Picture').removeClass('CancelBlur');
+                    },1100);
+                }
+                
             };
             document.getElementById("BiggerMamma").onclick = function(){
                 $('#Dead_Picture').addClass("Bigger");
@@ -250,6 +324,13 @@
                 path: 'champagne.json' // JSON文件路径
                 });
             };
+            if (reverse_picture_color) {
+                $('#Dead_Picture').addClass("reverse_color");
+                $('#Dead_Picture').removeClass('Dead_Picture_Light');
+                console.log("Reversed.");
+            }
+            $('#loading').addClass('disappear');
+            console.log("Main done.")
         </script>
     </body>
 </html>
